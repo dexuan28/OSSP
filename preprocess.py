@@ -254,6 +254,12 @@ def find_peaks(hist, bin_centers):
             peaks.append(bin_centers[-1])
 
     num_peaks = len(peaks)
+
+    # fix the indexerror # dexuan 10/21/2020
+    if num_peaks == 0:
+        peaks = [0]
+        print('IndexError issue here.')
+
     distance = 5  # Initial distance threshold
     # One third the 'dynamic range' (radius from peak)
     distance_threshold = int((peaks[-1] - peaks[0]) / 6)
