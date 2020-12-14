@@ -65,7 +65,7 @@ def _rescale_intensity_3d(src_ds, int imin, int imax, int omin, int omax):
     cdef int x, y, b
     cdef int x_dim, y_dim, num_bands
     cdef float val
-    cdef unsigned char new_val
+    cdef unsigned short new_val
 
     cdef unsigned short [:, :, :] src_view = src_ds
     dst_ds = np.empty_like(src_ds, dtype=c_uint8)
