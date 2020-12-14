@@ -81,6 +81,3 @@ Note: Images are segmented prior to display on the GUI, and as such may take up 
 * __--tds_file__: Existing training dataset file. Will create a new one with this name if none exists. If a path is not provided, file is created in the image directory.  *Default = <image_type>\_training\_data.h5*.
 * __--username__: A specific label to attach to the training set. The --training\_label argument of ossp_\process references this value. *Default = <image\_type>*
 
-### Contact
-Nicholas Wright
-
