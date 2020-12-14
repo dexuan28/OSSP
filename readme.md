@@ -21,6 +21,9 @@ The Anaconda distribution of Python is recommended, but any distribution with th
 * sklearn
 * matplotlib
 * tkinter
+```bash
+conda install -y gdal numpy h5py scikit-learn scikit-image matplotlib cython
+```
 
 #### Optional
 * tqdm (for progress bar)
