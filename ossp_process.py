@@ -13,6 +13,8 @@ from segment import segment_image
 from classify import classify_image
 from lib import utils
 import gdal
+import matplotlib.pyplot as plt
+import matplotlib as mpl
 
 
 def main():
@@ -278,10 +280,25 @@ def main():
             writer.writerow([quality_score, pixel_counts[0], pixel_counts[1], pixel_counts[2],
                              pixel_counts[3], pixel_counts[4]])
 
+        thumbnail_result = resize_tif_result(dst_filename)
+        print('thumbnail_result is produced.')
         # Close the progress bar
         if verbose:
             pbar.close()
             print("Finished Processing.")
+
+def colormap():
+    return mpl.colors.LinearSegmentedColormap.from_list('cmap', ['#FFFFFF','#bde5ef','#c2c7c8','#287ab9','#08306b'])
+
+def resize_tif_result(file):
+    output = file[:-4] + '_tn.png'
+    src_ds = gdal.Open(file, gdal.GA_ReadOnly)
+    classified_image_data = src_ds.ReadAsArray()
+    plt.figure(figsize=(8, 8))
+    plt.axis('off')
+    # imgplot = plt.imshow(classified_image_data, colormap())
+    plt.imsave(output, classified_image_data, cmap = colormap())
+    return output
 
 
 def construct_block_queue(block_size_x, block_size_y, x_dim, y_dim):
