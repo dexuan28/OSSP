@@ -43,7 +43,7 @@ def main():
                                none: No correction''')
     parser.add_argument("--pgc_script", type=str, default=None,
                         help="Path for the pansharpening script if needed")
-    parser.add_argument("-t", "--threads", type=int, default=4,
+    parser.add_argument("-t", "--threads", type=int, default=16,
                         help="Number of subprocesses to start")
 
     # Parse Arguments
@@ -165,7 +165,7 @@ def main():
         # Set necessary parameters for reading image 1 block at a time
         x_dim = src_ds.RasterXSize
         y_dim = src_ds.RasterYSize
-        desired_block_size = 6400
+        desired_block_size = 1600
 
         src_dtype = gdal.GetDataTypeSize(src_ds.GetRasterBand(1).DataType)
         # Analyze input image histogram (if applying correction)
