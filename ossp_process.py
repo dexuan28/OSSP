@@ -43,7 +43,7 @@ def main():
                                none: No correction''')
     parser.add_argument("--pgc_script", type=str, default=None,
                         help="Path for the pansharpening script if needed")
-    parser.add_argument("-t", "--threads", type=int, default=1,
+    parser.add_argument("-t", "--threads", type=int, default=4,
                         help="Number of subprocesses to start")
 
     # Parse Arguments
@@ -296,7 +296,6 @@ def resize_tif_result(file):
     classified_image_data = src_ds.ReadAsArray()
     plt.figure(figsize=(8, 8))
     plt.axis('off')
-    # imgplot = plt.imshow(classified_image_data, colormap())
     plt.imsave(output, classified_image_data, cmap = colormap())
     return output
 
