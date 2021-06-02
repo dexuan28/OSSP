@@ -115,7 +115,8 @@ def watershed_transformation(image_data, band_list, low_threshold, high_threshol
     local_min = None
 
     # Build a watershed from the markers on top of the edge image
-    im_watersheds = morphology.watershed(grad_image, markers)
+    im_watersheds = segmentation.watershed(grad_image, markers)
+    # im_watersheds = morphology.watershed(grad_image, markers)
     grad_image = None
 
     # Set all values outside of the image area (empty pixels, usually caused by
