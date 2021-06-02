@@ -2,13 +2,16 @@
 ## Open Source Sea-ice Processing
 ### Open Source Algorithm for Detecting Sea Ice Surface Features in High Resolution Optical Imagery
 
-### Nicholas Wright and Chris Polashenski
+### Initial Developer: Nicholas Wright and Chris Polashenski
+### Secondary Developer: Dexuan Sha
 
 ## Introduction
 
 Welcome to OSSP; a set of tools for detecting surface features in high resolution optical imagery of sea ice. The primary focus is on the detection of and differentiation between open water, melt ponds, and snow/ice. 
 
-The Anaconda distribution of Python is recommended, but any distribution with the appropriate packages will work. You can download Anaconda, version 3.6, here: https://www.continuum.io/downloads
+For this version, the training dataset is specifically labelled based on Arctic DMS Sea Ice Imagery during Spring Season, classification schema is combined with thick ice, thin ice, shadow feature and open water. Melt ponds mainly present among summer melting season, and more features related to weather and illumination condition will be developed in the next step.  
+
+The Anaconda distribution of Python is recommended, but any distribution with the appropriate packages will work. You can download Anaconda for Linux and Windows environment, version 3.6 (3.7, 3.8), here: https://www.continuum.io/downloads
 
 
 ## Dependencies
@@ -24,6 +27,7 @@ The Anaconda distribution of Python is recommended, but any distribution with th
 ```bash
 conda install -y gdal numpy h5py scikit-learn scikit-image matplotlib cython
 ```
+gdal package installation is not stable for all enviroment. If you are working on windows, we highly suggest you to use pre-compiled .whl file to install directly. For example, download the GDAL-3.0.2-cp37-cp37m-win_amd64.whl (http://pypi.naturalcapitalproject.org/simple/gdal/index.html) and type `pip install GDAL-3.0.2-cp37-cp37m-win_amd64.whl` for GDAL installation. Otherwise a VS software is required for compile in local environment.
 
 #### Optional
 * tqdm (for progress bar)
@@ -35,11 +39,11 @@ For detailed usage and installation instructions, see the pdf document 'Algorith
 
 ### setup.py
 
-The first step is to run the setup.py script to compile C libraries. Run __python setup.py build\_ext --build-lib .__ from the OSSP directory. Be sure to include the period after --build-lib. 
+The first step is to run the setup.py script to compile C libraries. Run `python setup.py build\_ext --build-lib .` from the OSSP directory. Be sure to include the period after `--build-lib. `
 
 ### ossp_process.py
 
-This combines all steps of the image classification scheme into one script and should be the only script to call directly. If given a folder of images, this script finds all appropriately formatted files directory (.tif(f) and .jpg) and queues them for processing. If given an image file, this script processes that single image alone. This script processes images as follows: Image preprocessing (histogram stretch or pansharpening if chosen) -> segmentation (segment.py) -> classification (classify.py) -> calculate statistics. Output results are saved as a geotiff with the same georeference of the input image. 
+This combines all steps of the image classification scheme into one script and should be the only script to call directly. If given a folder of images, this script finds all appropriately formatted files directory (.tif(f)) and queues them for processing. If given an image file, this script processes that single image alone. This script processes images as follows: Image preprocessing (histogram stretch or pansharpening if chosen) -> segmentation (segment.py) -> classification (classify.py) -> calculate statistics. Output results are saved as a geotiff with the same georeference of the input image. 
 
 #### Required Arguments
 * __input directory__: directory containing all of the images you wish to process. Note that all .jpg and .tif images in the input directory as well as all sub-directories of it will be processed. Can also provide the path and filename to a single image to process only that image.
@@ -60,7 +64,7 @@ This combines all steps of the image classification scheme into one script and s
 
 #### Notes:
 
-Example: ossp\_process.py input\_dir im\_type training\_dataset\_file -v
+Example: `ossp\_process.py input\_dir im\_type training\_dataset\_file -v`
 
 This example will process all .tif and .jpg files in the input\_dir.
 
@@ -84,3 +88,5 @@ Note: Images are segmented prior to display on the GUI, and as such may take up 
 * __--tds_file__: Existing training dataset file. Will create a new one with this name if none exists. If a path is not provided, file is created in the image directory.  *Default = <image_type>\_training\_data.h5*.
 * __--username__: A specific label to attach to the training set. The --training\_label argument of ossp_\process references this value. *Default = <image\_type>*
 
+For Example,
+`python input\_dir\training_gui.py training\_image\_dir im\_type`
