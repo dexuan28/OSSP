@@ -39,7 +39,7 @@ For detailed usage and installation instructions, see the pdf document 'Algorith
 
 ### setup.py
 
-The first step is to run the setup.py script to compile C libraries. Run `python setup.py build\_ext --build-lib .` from the OSSP directory. Be sure to include the period after `--build-lib. `
+The first step is to run the setup.py script to compile C libraries. Run `python setup.py build_ext --build-lib .` from the OSSP directory. Be sure to include the period after `--build-lib. `
 
 ### ossp_process.py
 
