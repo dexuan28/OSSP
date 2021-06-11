@@ -295,11 +295,22 @@ def resize_tif_result(file):
     output = file[:-4] + '_tn.png'
     src_ds = gdal.Open(file, gdal.GA_ReadOnly)
     classified_image_data = src_ds.ReadAsArray()
+    
+    unique_class = np.unique(classified_image_data, return_counts=False)
+    unique_class_number = len(unique_class)
+    all_class = [0, 1, 2, 3, 4]
+    missing_class = list(set(all_class) - set(unique_class.tolist()))
+
+    if unique_class_number == 4:
+        classified_image_data[-1][-1] = missing_class[0]
+    elif unique_class_number == 3:
+        classified_image_data[-1][-1] = missing_class[0]
+        classified_image_data[-1][-2] = missing_class[1]
+        
     plt.figure(figsize=(8, 8))
     plt.axis('off')
     plt.imsave(output, classified_image_data, cmap = colormap())
     return output
-
 
 def construct_block_queue(block_size_x, block_size_y, x_dim, y_dim):
     # Convert the block size into a list of the top (y) left (x) coordinate of each block
